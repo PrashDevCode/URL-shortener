@@ -33,11 +33,18 @@ router.post("/shorten", async (req, res) => {
       shortUrl: shortId,
       baseUrl: process.env.BASE_URL || "http://localhost:8001",
     });
-
   } catch (err) {
     console.error("Shorten error:", err);
     return res.status(500).send("Server Error");
   }
+});
+
+router.get("/signup", (req, res) => {
+  return res.render("signup");
+});
+
+router.get("/login", (req, res) => {
+  return res.render("login");
 });
 
 export default router;
