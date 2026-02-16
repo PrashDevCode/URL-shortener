@@ -1,9 +1,20 @@
-const sessionIdToUserIdMap = new Map();
+// const sessionIdToUserIdMap = new Map();
+import jwt from "jsonwebtoken";
 
-export function createSession(sessionId, userId) {
-  sessionIdToUserIdMap.set(sessionId, userId);
+export function createSession(userId) {
+  return jwt.sign(
+    {
+      _id: user._id,
+      email: user.email,
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" },
+  );
 }
 
-export function getUserIdFromSession(sessionId) {
-  return sessionIdToUserIdMap.get(sessionId);
+export function getUserIdFromSession(token) {
+  if (!token) {
+    return null;
+  }
+  return jwt.verify(token, process.env.JWT_SECRET);
 }
